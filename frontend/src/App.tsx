@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -48,6 +48,11 @@ function App() {
     },
     enabled: !!selectedAccount,
   })
+
+  // Memoize selected account name
+  const selectedAccountName = useMemo(() => {
+    return accounts?.find(a => a.account_id === selectedAccount)?.account_name
+  }, [accounts, selectedAccount])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -128,7 +133,7 @@ function App() {
           <div className="bg-white rounded-lg shadow">
             <div className="px-6 py-4 border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-900">
-                IAM Users - {accounts?.find(a => a.account_id === selectedAccount)?.account_name}
+                IAM Users - {selectedAccountName}
               </h2>
             </div>
             <div className="overflow-x-auto">

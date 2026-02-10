@@ -17,6 +17,12 @@ app.use((req, res, next) => {
   next()
 })
 
+// NOTE: Rate limiting should be added before production deployment
+// Consider using express-rate-limit middleware:
+// const rateLimit = require('express-rate-limit');
+// const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
+// app.use('/api/', limiter);
+
 // Database connection
 const dbPath = process.env.DATABASE_PATH || join(__dirname, '../../database/awsui.db')
 const db = new sqlite3.Database(dbPath, (err) => {

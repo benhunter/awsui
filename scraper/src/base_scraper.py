@@ -20,7 +20,7 @@ class BaseScraper(ABC):
         Args:
             account_id: AWS account ID
             region: AWS region
-            profile: AWS profile name (optional)
+            profile: AWS profile name from ~/.aws/credentials or ~/.aws/config for authentication (optional)
         """
         self.account_id = account_id
         self.region = region

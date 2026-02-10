@@ -76,9 +76,11 @@ def test_database_connect(temp_db):
 
 def test_database_context_manager(temp_db):
     """Test database as context manager"""
-    with DatabaseManager(temp_db) as db:
+    db = DatabaseManager(temp_db)
+    with db:
         assert db.connection is not None
-    # Connection should be closed after exiting context
+    # Verify connection is closed after exiting context
+    assert db.connection is None
 
 
 def test_insert_account(temp_db):
