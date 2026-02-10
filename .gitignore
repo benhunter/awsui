@@ -57,6 +57,10 @@ data/
 .env.local
 .env.*.local
 
+# Config files with secrets
+scraper/accounts.yaml
+scraper/config.yaml
+
 # Logs
 logs/
 *.log
