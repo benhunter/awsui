@@ -39,6 +39,7 @@ This project is a **comprehensive AWS multi-account aggregation tool** that help
 ## Quick Start
 
 ### Prerequisites
+
 - Python 3.10+
 - Node.js 18+
 - AWS credentials configured
@@ -60,22 +61,63 @@ cd ..
 
 ### 3. Setup Python Scraper
 
-```bash
-cd scraper
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+#### Using `uv` for Python Environment Management
 
-# Configure your AWS accounts
-cp accounts.yaml.example accounts.yaml
-cp config.yaml.example config.yaml
-# Edit accounts.yaml with your AWS account details
-```
+This project now uses [`uv`](https://github.com/astral-sh/uv) for Python environment and dependency management instead of `python -m venv` and `pip`.
+
+**Why `uv`?**
+
+- Much faster dependency installation
+- Modern, reliable, and compatible with `pip`/`venv` workflows
+- No need to manually activate/deactivate virtual environments
+
+#### Quick Start for Scraper
+
+1. **Install `uv`**
+   - [See official instructions](https://github.com/astral-sh/uv#installation)
+   - Example (recommended):
+     ```bash
+     # On Windows, Mac, or Linux (requires Python 3.8+)
+     pip install uv
+     # Or use a prebuilt binary from the releases page
+     ```
+
+2. **Install dependencies and set up**
+
+   ```bash
+   cd scraper
+   uv venv .venv
+   uv pip install -r requirements.txt
+   cp accounts.yaml.example accounts.yaml
+   cp config.yaml.example config.yaml
+   # Edit accounts.yaml with your AWS account details
+   ```
+
+3. **Activate the environment**
+
+   ```bash
+   # On Windows:
+   .venv\Scripts\activate
+   # On Mac/Linux:
+   source .venv/bin/activate
+   ```
+
+4. **Run the scraper**
+   ```bash
+   uv pip install -r requirements.txt  # (if not already done)
+   python -m src.cli
+   ```
+
+**Notes:**
+
+- You can still use `deactivate` to exit the environment.
+- `uv` is a drop-in replacement for most `pip`/`venv` commands.
+- For more, see the [uv documentation](https://github.com/astral-sh/uv).
 
 ### 4. Run Scraper (Optional - Demo data already loaded)
 
 ```bash
-# With virtual environment activated
+# Run the scraper
 python -m src.cli
 
 # Or run tests
@@ -106,6 +148,7 @@ npm run dev
 Open your browser to **http://localhost:5173**
 
 You'll see:
+
 - Dashboard with statistics (accounts, users, roles, findings)
 - Account cards (click to view details)
 - IAM users table with MFA status
@@ -113,6 +156,7 @@ You'll see:
 ## Demo Data
 
 The application comes with demo data so you can explore it immediately:
+
 - 2 AWS accounts (Production and Development)
 - 5 IAM users with MFA status
 - 3 IAM roles
@@ -137,6 +181,7 @@ The framework is ready for additional services. To add a new service:
 4. Add UI components in `frontend/src/`
 
 See `ROADMAP.md` for detailed implementation plans for:
+
 - SecurityHub findings
 - GuardDuty findings
 - AWS Config resources
@@ -158,6 +203,7 @@ pytest --cov=src --cov-report=html
 ### Code Review and Security
 
 The code has been:
+
 - ✅ Code reviewed with all feedback addressed
 - ✅ Security scanned with CodeQL
 - ✅ Tested (17 tests passing)
@@ -238,20 +284,24 @@ awsui/
 ## Troubleshooting
 
 ### Database Errors
+
 - Make sure the database is initialized: `sqlite3 database/awsui.db < database/schema.sql`
 - Check database permissions
 
 ### Backend Won't Start
+
 - Install dependencies: `npm install`
 - Check port 3000 is available
 - Verify database path in backend/.env
 
 ### Frontend Won't Start
+
 - Install dependencies: `npm install`
 - Check port 5173 is available
 - Verify API URL in frontend/.env
 
 ### Scraper Errors
+
 - Verify AWS credentials are configured
 - Check AWS IAM permissions
 - Review accounts.yaml configuration
@@ -271,6 +321,7 @@ See ROADMAP.md Phase 7 for complete deployment guide.
 ## Contributing
 
 This project follows test-driven development:
+
 1. Write tests first
 2. Implement features
 3. Run tests

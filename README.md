@@ -52,11 +52,12 @@ cd awsui
 
 ### 2. Setup Python Scraper
 
+**Note:** This project now uses [`uv`](https://github.com/astral-sh/uv) for Python environment management. See [scraper/USING_UV.md](scraper/USING_UV.md) for details and instructions.
+
 ```bash
 cd scraper
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+uv venv .venv
+uv pip install -r requirements.txt
 cp accounts.yaml.example accounts.yaml
 cp config.yaml.example config.yaml
 # Edit accounts.yaml with your AWS account details
@@ -90,25 +91,29 @@ cp .env.example .env
 ### 6. Run the Application
 
 **Terminal 1 - Backend:**
+
 ```bash
 cd backend
 bun run dev
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd frontend
 bun run dev
 ```
 
 **Terminal 3 - Run Scraper (one-time or scheduled):**
+
 ```bash
 cd scraper
-source venv/bin/activate
+uv pip install -r requirements.txt  # (if not already done)
 python -m src.cli
 ```
 
 The application will be available at:
+
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:3000
 
@@ -139,6 +144,7 @@ See `.env.example` files in `backend/` and `frontend/` directories.
 ### Running Tests
 
 **Scraper:**
+
 ```bash
 cd scraper
 pytest
@@ -146,12 +152,14 @@ pytest --cov=src --cov-report=html
 ```
 
 **Backend:**
+
 ```bash
 cd backend
 bun test
 ```
 
 **Frontend:**
+
 ```bash
 cd frontend
 bun test
@@ -188,6 +196,7 @@ awsui/
 ## AWS Permissions Required
 
 The AWS credentials used must have read permissions for:
+
 - IAM: `iam:List*`, `iam:Get*`
 - SecurityHub: `securityhub:GetFindings`, `securityhub:DescribeHub`
 - GuardDuty: `guardduty:ListDetectors`, `guardduty:ListFindings`, `guardduty:GetFindings`
@@ -200,6 +209,7 @@ The AWS credentials used must have read permissions for:
 ## Contributing
 
 Contributions are welcome! Please follow these guidelines:
+
 1. Follow test-driven development (TDD)
 2. Write tests for new features
 3. Ensure all tests pass
