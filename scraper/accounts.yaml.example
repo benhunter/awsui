@@ -1,0 +1,24 @@
+# AWS Account Configuration
+# Copy this to accounts.yaml and configure your accounts
+
+accounts:
+  - name: "Production"
+    account_id: "123456789012"
+    # AWS profile name from ~/.aws/credentials or ~/.aws/config
+    profile: "prod-profile"
+    regions:
+      - "us-east-1"
+      - "us-west-2"
+    
+  - name: "Development"
+    account_id: "210987654321"
+    profile: "dev-profile"
+    regions:
+      - "us-east-1"
+    
+  # Add more accounts as needed
+  # - name: "Staging"
+  #   account_id: "345678901234"
+  #   profile: "staging-profile"
+  #   regions:
+  #     - "us-east-1"
